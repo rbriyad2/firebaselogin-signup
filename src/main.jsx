@@ -10,6 +10,7 @@ import Home from './components/Home/Home.jsx';
 import Login from './components/Login/Login.jsx';
 import Register from './components/Register/Register.jsx';
 import Contact from './components/Contact/Contact.jsx';
+import ForgetPassword from './components/ForgetPassword/ForgetPassword.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,9 +30,14 @@ const router = createBrowserRouter([
         element: <Register></Register>
       },
       {
+        path: '/forget',
+        element: <ForgetPassword></ForgetPassword>
+      },
+      {
         path: '/contact',
         element: <Contact></Contact>
       }
+      
     ]
   },
 ]);

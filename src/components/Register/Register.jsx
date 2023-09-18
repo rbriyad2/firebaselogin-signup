@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Register.css";
 import { Link } from "react-router-dom";
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateProfile } from "firebase/auth";
 import app from "../firebase/firebase.init";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,7 +17,7 @@ const handelsubmitFrom = (event) => {
     setSuccess('')
     setRegerror('')
     
-    // const name = event.target.name.value;
+    const name = event.target.name.value;
 
     //data collect from input field
     const email = event.target.email.value;
@@ -36,12 +36,12 @@ else if(!/(?=.*[a-z].*[0-9])/.test(password)){
     createUserWithEmailAndPassword(auth, email, password)
     .then(result =>{
       const loggeduser= result.user;
-      console.log(email , password)
-      console.log(loggeduser.email)
+      console.log(email , password, name)
+      console.log(loggeduser)
       event.target.reset()
       setRegerror('')
       sendVerification(loggeduser)
-
+      updateUserdata(loggeduser, name)
       toast.success('account create sucessfull', {
         position: "bottom-center",
         autoClose: 1000,
@@ -64,6 +64,17 @@ else if(!/(?=.*[a-z].*[0-9])/.test(password)){
       alert('Please Verify Your Email')
     })
   }
+  const updateUserdata=(user,name)=>{
+    updateProfile(user,{
+      displayName: name
+    })
+    .then(()=>{
+      console.log('Username Updated')
+    })
+    .catch(error=>{
+      setRegerror(error.message)
+    })
+  }
   return (
     <div className="loginPage">
       <div className="container">
@@ -72,19 +83,19 @@ else if(!/(?=.*[a-z].*[0-9])/.test(password)){
             <h2>Register</h2>
             <form onSubmit={handelsubmitFrom}>
               <div className="registerinput">
-                <input type="text" name="name" placeholder=" User Name" />{" "}
+                <input type="text" name="name" placeholder=" User Name" />
                 <br />
                 <input required
                   type="email"
                   name="email"
                   placeholder=" Enter Email"
-                />{" "}
+                />
                 <br />
                 <input required
                   type="password"
                   name="password"
                   placeholder=" Password"
-                />{" "}
+                />
                 <br />
                 <p className="text-danger">{regerror}</p>
                 <button type="submit" class="registerBtn"> Register</button>
