@@ -1,0 +1,43 @@
+.loginwithSocial{
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.forgetpassword{
+    margin-left: 70%;
+    color: #333;
+}
+.forgetpassword:hover{
+color: #7a3ae2;
+}
+.githubicon{
+    width: 75px;
+    height: 75px;
+}
+.fbicon{
+    width: 65px;
+    height: 65px;
+}
+.loginwithSocial img:hover{
+    color: #b70808;
+    cursor: pointer;
+}
+.singupLink{
+    text-align: center;
+    margin-top: 30px;
+}
+.singupLink a{
+    color: #333;
+    font-size: 20px;
+    transition: all linear .3s;
+    text-decoration: underline;
+}
+.singupLink a:hover{
+    color: #7a3ae2;
+}
+.registerinput p{
+    text-align: center;
+    margin: 50px 0 -10px 0;
+    font-size: 16px;
+}
