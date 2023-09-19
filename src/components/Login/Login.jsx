@@ -7,6 +7,8 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from '../firebase/firebase.init';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const auth = getAuth(app);
 
@@ -15,6 +17,7 @@ const Login = () => {
   const [errors, setErrors]=useState('')
   const [users, setUsers]= useState('')
   const [success, setSuccess]= useState('')
+  const [showPass, setShowPass]=useState(false)
   //handlelogin form submit btn
   const handelLogin=(event)=>{
     event.preventDefault()
@@ -57,6 +60,10 @@ const Login = () => {
     });
 
   }
+const handleshowPassword=()=>{
+  setShowPass(!showPass)
+}
+
     return (
         <div className="loginPage">
         <div className="container">
@@ -66,7 +73,11 @@ const Login = () => {
               <form onSubmit={handelLogin}>
                   <div className="registerinput">
                       <input required type="email" name="email"  placeholder=" Enter Email" /> <br />
-                      <input type="password" name="password" placeholder=" Password" /> <br />
+                      <input id='passwordField' type={showPass? 'password' : 'text'} name="password" placeholder=" Password" />
+                     <div className="eyeicon">
+                     
+                      {showPass? <FontAwesomeIcon onClick={handleshowPassword} icon={faEyeSlash} id='eyeoff'/> : <FontAwesomeIcon onClick={handleshowPassword} icon={faEye} id='eyeoff'/> } <br />
+                     </div>
                       <Link className='forgetpassword' to='/forget'>Forget Password?</Link>
                       <button type='submit' class="registerBtn"> LogIn</button>
                       <p className='text-danger'>{errors}</p>

@@ -5,11 +5,14 @@ import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateP
 import app from "../firebase/firebase.init";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const auth = getAuth(app);
 const Register = () => {
 const [regerror, setRegerror]= useState('')
 const [success, setSuccess]= useState('')
+const [showPass, setShowPass]=useState(false)
 const handelsubmitFrom = (event) => {
     
     // preventDefult for from reload off
@@ -75,6 +78,10 @@ else if(!/(?=.*[a-z].*[0-9])/.test(password)){
       setRegerror(error.message)
     })
   }
+  const handleshowPassword=()=>{
+    setShowPass(!showPass)
+  }
+  
   return (
     <div className="loginPage">
       <div className="container">
@@ -91,11 +98,15 @@ else if(!/(?=.*[a-z].*[0-9])/.test(password)){
                   placeholder=" Enter Email"
                 />
                 <br />
-                <input required
-                  type="password"
+                <input id="passwordField" required
+                 type={showPass? 'password' : 'text'}
                   name="password"
                   placeholder=" Password"
                 />
+                <div className="eyeicon">
+                     
+                     {showPass? <FontAwesomeIcon onClick={handleshowPassword} icon={faEyeSlash} id='eyeoff'/> : <FontAwesomeIcon onClick={handleshowPassword} icon={faEye} id='eyeoff'/> } <br />
+                    </div>
                 <br />
                 <p className="text-danger">{regerror}</p>
                 <button type="submit" class="registerBtn"> Register</button>
