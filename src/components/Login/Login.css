@@ -15,9 +15,9 @@ color: #7a3ae2;
     width: 75px;
     height: 75px;
 }
-.fbicon{
-    width: 65px;
-    height: 65px;
+.googleicon{
+    width: 60px;
+    height: 60px;
 }
 .loginwithSocial img:hover{
     color: #b70808;
@@ -59,4 +59,12 @@ color: #7a3ae2;
     font-size: 20px;
     margin-left: 10px;
     position: relative;
+}
+.afterLoginInfo{
+    text-align: center;
+}
+.photourlimg{
+    width: 80px;
+    height: 80px;
+    margin-top: 20px;
 }

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import githubicon from '../../assets/images/icons8-github.svg';
-import fbicon from '../../assets/images/icons8-facebook.svg';
+import googleIcon from '../../assets/images/icons8-google.svg';
 import './Login.css';
 import { Link } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import app from '../firebase/firebase.init';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,7 +19,7 @@ const Login = () => {
   const [success, setSuccess]= useState('')
   const [showPass, setShowPass]=useState(true)
   //handlelogin form submit btn
-  const handelLogin=(event)=>{
+  const handleEmailPassLogin=(event)=>{
     event.preventDefault()
     const email = event.target.email.value;
     const password = event.target.password.value;
@@ -60,9 +60,35 @@ const Login = () => {
     });
 
   }
+
+  const handleGoogleLogin=()=>{
+    const googleProvider = new GoogleAuthProvider();
+    signInWithPopup(auth, googleProvider)
+    .then((result) => {
+      const user = result.user;
+      setUsers(user)
+    }).catch((error) => {
+      const errorMessage = error.message;
+      setErrors(errorMessage)
+      // ...
+    });
+  }
 const handleshowPassword=()=>{
   setShowPass(!showPass)
 }
+  const handleGithubLogin=()=>{
+    const gitHubProvider = new GithubAuthProvider();
+    signInWithPopup(auth, gitHubProvider)
+    .then((result) => {
+      const user = result.user;
+      setUsers(user)
+    }).catch((error) => {
+      const errorMessage = error.message;
+      setErrors(errorMessage)
+      // ...
+    });
+  }
+
 
     return (
         <div className="loginPage">
@@ -70,7 +96,7 @@ const handleshowPassword=()=>{
           <div className="register">
             <div className="registerarea">
               <h2>Login</h2>
-              <form onSubmit={handelLogin}>
+              <form onSubmit={handleEmailPassLogin}>
                   <div className="registerinput">
                       <input required type="email" name="email"  placeholder=" Enter Email" /> <br />
                       <input id='passwordField' type={showPass? 'password' : 'text'} name="password" placeholder=" Password" />
@@ -85,14 +111,17 @@ const handleshowPassword=()=>{
                       <ToastContainer />
                       <p>Or Using For Login</p>
                       <div className="loginwithSocial">
-                    <img className='fbicon' src={fbicon} alt=" Facebook Login" />
-                    <img className='githubicon' src={githubicon} alt="Github Login" />
+                    <img onClick={handleGoogleLogin} className='googleicon' src={googleIcon} alt=" Facebook Login" />
+                    <img onClick={handleGithubLogin} className='githubicon' src={githubicon} alt="Github Login" />
                       </div>
                       <div className="singupLink">
                         <Link to='/register'>Create Account</Link>
                       </div>
+                      <div className="afterLoginInfo">
                       <p>{users.email}</p>
-                      <p>{users.uid}</p>
+                      <p>{users.displayName}</p>
+                      <img className='photourlimg' src={users.photoURL} alt="" />
+                      </div>
                   </div>
               </form>
             </div>
