@@ -12,7 +12,7 @@ const auth = getAuth(app);
 const Register = () => {
 const [regerror, setRegerror]= useState('')
 const [success, setSuccess]= useState('')
-const [showPass, setShowPass]=useState(false)
+const [showPass, setShowPass]=useState(true)
 const handelsubmitFrom = (event) => {
     
     // preventDefult for from reload off

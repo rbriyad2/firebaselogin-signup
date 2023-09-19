@@ -17,7 +17,7 @@ const Login = () => {
   const [errors, setErrors]=useState('')
   const [users, setUsers]= useState('')
   const [success, setSuccess]= useState('')
-  const [showPass, setShowPass]=useState(false)
+  const [showPass, setShowPass]=useState(true)
   //handlelogin form submit btn
   const handelLogin=(event)=>{
     event.preventDefault()
